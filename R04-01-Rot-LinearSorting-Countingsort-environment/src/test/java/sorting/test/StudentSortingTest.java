@@ -1,5 +1,7 @@
 package sorting.test;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.Arrays;
 
 import org.junit.Assert;
@@ -79,12 +81,11 @@ public class StudentSortingTest {
 	@Test
 	public void countingSortArrayTamPar() {
 		// { 30, 28, 7, 29, 11, 26, 4, 22, 23, 31 })
-		CountingSort<Integer> countingSort = new CountingSort<Integer>();
-		Integer arrayOrdenado = vetorTamPar.clone();
+		CountingSort countingSort = new CountingSort();
+		Integer[] arrayOrdenado = vetorTamPar.clone();
 		Arrays.sort(arrayOrdenado);
-
 		countingSort.sort(vetorTamPar, 0, vetorTamPar.length - 1);
-		assertArrayEquals(vetorTamPar, arrayOrdenado);
+		assertArrayEquals(arrayOrdenado, vetorTamPar);
 		
 	}
 

@@ -45,7 +45,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 		for (int i = leftIndex; i < rightIndex + 1; i++)
 		{
-			if (array[i].compareTo(array[biggestElement]) > 0)
+			if (array[i].compareTo(biggestElement) > 0)
 			{
 				biggestElement = array[i];
 			}
@@ -58,7 +58,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 		for (int i = leftIndex; i < rightIndex + 1; i++)
 		{
-			if (array[i].compareTo(array[smallerElement]) > 0)
+			if (array[i].compareTo(smallerElement) > 0)
 			{
 				smallerElement = array[i];
 			}
