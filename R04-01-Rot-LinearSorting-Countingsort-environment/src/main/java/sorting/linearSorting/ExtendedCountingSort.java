@@ -12,15 +12,18 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
+	if (array.length != 0 && leftIndex >= 0 && rightIndex >= 0 && rightIndex > leftIndex)
+	{
 		Integer smallerElement = getSmallerElement(array, leftIndex, rightIndex);
 		Integer biggestElement = getBiggerElement(array, leftIndex, rightIndex);
 
 		Integer[] auxArrayCounting = new Integer[biggestElement - smallerElement + 1];
-		Integer[] auxArraySort = new Integer[array.length];
+		fillArrayWithZeros(auxArrayCounting);
+		Integer[] auxArraySort = new Integer[(rightIndex - leftIndex) + 1];
 
 		for (int i = leftIndex; i < rightIndex + 1; i++)
 		{
-			auxArrayCounting[array[i]] += 1;
+			auxArrayCounting[array[i] - smallerElement] += 1;
 		}
 
 		for (int j = 1; j < auxArrayCounting.length; j++)
@@ -28,15 +31,25 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 			auxArrayCounting[j] += auxArrayCounting[j - 1];
 		}
 
-		for(int k = rightIndex; k >= leftIndex ; k++)
+		for(int k = rightIndex; k >= leftIndex ; k--)
 		{
-			auxArraySort[auxArrayCounting[array[k] - smallerElement] - smallerElement] = array[k];
+			auxArraySort[auxArrayCounting[array[k] - smallerElement] - 1] = array[k];
 			auxArrayCounting[array[k] - smallerElement] -= 1;
 		}
 
+		int indexArrayOrd = 0;
 		for (int l = leftIndex; l < rightIndex + 1; l++)
 		{
-			array[l] = auxArraySort[l];
+			array[l] = auxArraySort[ indexArrayOrd ];
+			indexArrayOrd++;
+		}
+	}
+	}
+	public void fillArrayWithZeros(Integer[] array)
+	{
+		for (int i = 0; i < array.length; i++)
+		{
+			array[i] = 0;
 		}
 	}
 	public Integer getBiggerElement(Integer[] array, int leftIndex, int rightIndex)
@@ -58,7 +71,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 		for (int i = leftIndex; i < rightIndex + 1; i++)
 		{
-			if (array[i].compareTo(smallerElement) > 0)
+			if (array[i].compareTo(smallerElement) < 0)
 			{
 				smallerElement = array[i];
 			}

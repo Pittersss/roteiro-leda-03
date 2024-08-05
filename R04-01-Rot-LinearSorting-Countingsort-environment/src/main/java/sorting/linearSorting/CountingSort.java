@@ -23,8 +23,10 @@ public class CountingSort extends AbstractSorting<Integer> {
 			Integer biggestElement = getBiggerElement(array, leftIndex, rightIndex);
 
 			Integer[] auxArrayCounting = new Integer[biggestElement + 1];
-			Integer[] auxArraySort = new Integer[array.length];
-
+			fillArrayWithZeros(auxArrayCounting);
+			
+			Integer[] auxArraySort = new Integer[(rightIndex - leftIndex) + 1];
+			
 			for (int i = leftIndex; i < rightIndex + 1; i++)
 			{
 				auxArrayCounting[array[i]] += 1;
@@ -37,13 +39,15 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 			for(int k = rightIndex; k >= leftIndex ; k--)
 			{
-				auxArraySort[auxArrayCounting[array[k]]] = array[k];
+				auxArraySort[auxArrayCounting[array[k]] - 1] = array[k];
 				auxArrayCounting[array[k]] -= 1;
 			}
 
+			int indexArrayOrd = 0;
 			for (int l = leftIndex; l < rightIndex + 1; l++)
 			{
-				array[l] = auxArraySort[l];
+				array[l] = auxArraySort[ indexArrayOrd ];
+				indexArrayOrd++;
 			}
 		}	
 	}
@@ -72,6 +76,14 @@ public class CountingSort extends AbstractSorting<Integer> {
 			}
 		}
 		return smallerElement;
+	}
+
+	public void fillArrayWithZeros(Integer[] array)
+	{
+		for (int i = 0; i < array.length; i++)
+		{
+			array[i] = 0;
+		}
 	}
 
 }
